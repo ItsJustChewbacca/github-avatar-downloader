@@ -4,14 +4,11 @@ var secrets = require("./secrets.js");
 var fs = require("fs");
 //slicing the command line arguments to start at the [2] position
 var args = process.argv.slice(2);
-if (
-  args[0] !== ("Jquery" && "Nodejs" && "nodejs") &&
-  args[1] !== ("node" && "Node")
-) {
+if (args[0] !== "nodejs" && args[1] !== "node") {
   console.log(
     "Mordor has denied your access",
     "if you would like to pass:",
-    "use 'Nodejs' then 'node' as command line arguments, in that order"
+    "use 'nodejs' then 'node' as command line arguments, in that order, all lowercase"
   );
   return;
 }
