@@ -1,22 +1,8 @@
 var request = require("request");
 var secrets = require("./secrets.js");
+var args = process.argv.slice(2);
 var fs = require("fs");
 console.log("welcome to the github avatar downloader");
-//I need to get each image url
-//I need to save the image to a filepath
-function downloadImageByURL(url, filepath) {
-  request
-    .get(url)
-    .on("error", function(error) {
-      console.log("get wrecked:", error);
-    })
-    .on("response", function(response) {
-      console.log("ResponseStatusCode:", response.statusCode);
-      console.log("ResponseStatusMessage:", response.statusMessage);
-      console.log("ResponseContentType:", response.headers);
-    })
-    .pipe(fs.createWriteStream(filepath));
-}
 
 function getRepoContributors(repoOwner, repoName, callback) {
   var options = {
@@ -42,10 +28,26 @@ function getRepoContributors(repoOwner, repoName, callback) {
   });
 }
 
-getRepoContributors("jquery", "jquery", function(error, result) {
+getRepoContributors(args[0], args[1], function(error, result) {
   if (error) {
     console.log("Get absolutely wrecked by", error);
     return;
   }
   console.log("Mad hacks:", result);
 });
+
+//I need to get each image url
+//I need to save the image to a filepath
+function downloadImageByURL(url, filepath) {
+  request
+    .get(url)
+    .on("error", function(error) {
+      console.log("get wrecked:", error);
+    })
+    .on("response", function(response) {
+      console.log("ResponseStatusCode:", response.statusCode);
+      console.log("ResponseStatusMessage:", response.statusMessage);
+      console.log("ResponseContentType:", response.headers);
+    })
+    .pipe(fs.createWriteStream(filepath));
+}
