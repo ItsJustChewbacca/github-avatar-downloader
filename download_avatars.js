@@ -1,8 +1,21 @@
+// Requiring my modules and passing them into easy maintainable variables
 var request = require("request");
 var secrets = require("./secrets.js");
-var args = process.argv.slice(2);
-//slicing the command line arguments to start at the [2] position
 var fs = require("fs");
+//slicing the command line arguments to start at the [2] position
+var args = process.argv.slice(2);
+if (
+  args[0] !== ("Jquery" && "Nodejs" && "nodejs") &&
+  args[1] !== ("node" && "Node")
+) {
+  console.log(
+    "Mordor has denied your access",
+    "if you would like to pass:",
+    "use 'Nodejs' then 'node' as command line arguments, in that order"
+  );
+  return;
+}
+
 console.log("welcome to the github avatar downloader");
 
 function getRepoContributors(repoOwner, repoName, callback) {
